@@ -1,7 +1,7 @@
 # Dockerfile for P2Pool-Dash Server
 # https://www.dash.org/
 
-FROM alpine
+FROM ubuntu
 MAINTAINER TheLazieR <thelazier@gmail.com>
 LABEL description="Dockerized P2Pool-Dash"
 
@@ -9,12 +9,12 @@ WORKDIR /p2pool
 ENV P2POOL_DASH_HOME /p2pool/p2pool-dash
 ENV P2POOL_DASH_REPO https://github.com/thelazier/p2pool-dash
 
-RUN apk --no-cache add \
+RUN apt-get update && apt-get install -y \
     git \
     perl \
     python \
     python-dev \
-    py-twisted \
+    python-twisted \
     gcc \
     g++ \
   && git clone $P2POOL_DASH_REPO $P2POOL_DASH_HOME \
@@ -22,7 +22,7 @@ RUN apk --no-cache add \
   && git submodule init \
   && git submodule update \
   && cd dash_hash && python setup.py install && cd .. \
-  && apk -v del \
+  && apt-get remove -y \
     git \
     python-dev \
     perl \
