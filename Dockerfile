@@ -22,6 +22,9 @@ RUN apt-get update && apt-get install -y \
   && git submodule init \
   && git submodule update \
   && cd dash_hash && python setup.py install && cd .. \
+  && mv web-static web-static-original \
+  && git clone https://github.com/justino/p2pool-ui-punchy.git \
+  && ln -s p2pool-ui-punchy web-static \
   && apt-get remove -y \
     git \
     python-dev \
@@ -29,6 +32,7 @@ RUN apt-get update && apt-get install -y \
     gcc \
     g++
 
+COPY config.js p2pool-ui-punchy/js/config.js
 
 EXPOSE 7903 8999 17903 18999
 
