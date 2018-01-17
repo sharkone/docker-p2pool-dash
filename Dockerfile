@@ -50,8 +50,11 @@ ENV DASH_DONATION 0
 ENV DASH_ADDRESS XbDbC3LmKy9VrsFcV9m7BjdsEJtaKPDjTo
 ENV DASH_OTHER_PARAM --no-bugreport --disable-advertise
 
+ENV EXTERNAL_IP 127.0.0.1
+
 # Default arguments, can be overriden
 CMD python run_p2pool.py \
+  --external-ip $EXTERNAL_IP \
   --give-author $DASH_DONATION \
   -f $DASH_FEE \
   -a $DASH_ADDRESS \
